@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize EmailJS
+    emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS public key
+    
     // Mobile menu toggle
     const hamburger = document.querySelector('.hamburger');
     const mobileMenu = document.querySelector('.mobile-menu');
@@ -23,6 +26,17 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Update active link
             updateActiveNavLink(targetSection);
+        });
+        
+        // Keyboard navigation for mobile menu
+        link.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                scrollToSection(this.getAttribute('data-section'));
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                updateActiveNavLink(this.getAttribute('data-section'));
+            }
         });
     });
     
@@ -65,6 +79,37 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add animation classes to elements
     addAnimationClasses();
     
+    // Initialize typing effect
+    const heroTitle = document.querySelector('.hero-title .gradient-text');
+    if (heroTitle) {
+        typeWriter(heroTitle, 'Abhinav Nallanagula', 100);
+    }
+    
+    // Initialize chart
+    const ctx = document.getElementById('typingSpeedChart')?.getContext('2d');
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [{
+                    label: 'Typing Speed (WPM)',
+                    data: [30, 45, 60, 75],
+                    borderColor: '#4f46e5',
+                    backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
+    
     // Contact form handling
     const contactForm = document.getElementById('contactForm');
     const toastNotification = document.getElementById('toastNotification');
@@ -82,24 +127,26 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Simulate form submission
         const submitBtn = this.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         submitBtn.disabled = true;
         
-        setTimeout(() => {
-            // Reset form
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+            name,
+            email,
+            message
+        }).then(() => {
             this.reset();
-            
-            // Reset button
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
-            
-            // Show toast notification
             showToast('Message Sent! I\'ll get back to you soon.', true);
-        }, 1500);
+        }).catch(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            showToast('Failed to send message. Please try again.', false);
+        });
     });
 });
 
@@ -114,7 +161,6 @@ function showToast(message, isSuccess = true) {
     
     toastNotification.classList.add('visible');
     
-    // Auto-hide after 3 seconds
     setTimeout(() => {
         toastNotification.classList.remove('visible');
     }, 3000);
@@ -146,47 +192,41 @@ function updateActiveNavLink(activeSection) {
 
 // Add animation classes to elements
 function addAnimationClasses() {
-    // Hero section animations
     const heroContent = document.querySelector('.hero-content');
     if (heroContent) {
         heroContent.classList.add('fade-in');
     }
     
-    // Section headers
     const sectionHeaders = document.querySelectorAll('.section-header');
     sectionHeaders.forEach(header => {
         header.classList.add('fade-in');
     });
     
-    // About content
     const aboutText = document.querySelector('.about-text');
     const technologies = document.querySelector('.technologies');
     
     if (aboutText) aboutText.classList.add('slide-in-left');
     if (technologies) technologies.classList.add('slide-in-right');
     
-    // Project cards
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach((card, index) => {
         card.classList.add('fade-in');
         card.style.transitionDelay = `${index * 0.1}s`;
     });
     
-    // Contact content
     const contactInfo = document.querySelector('.contact-info');
     const contactFormContainer = document.querySelector('.contact-form-container');
     
     if (contactInfo) contactInfo.classList.add('slide-in-left');
     if (contactFormContainer) contactFormContainer.classList.add('slide-in-right');
     
-    // Footer
     const footerContent = document.querySelector('.footer-content');
     if (footerContent) {
         footerContent.classList.add('fade-in');
     }
 }
 
-// Typing effect for hero title (optional enhancement)
+// Typing effect for hero title
 function typeWriter(element, text, speed = 100) {
     let i = 0;
     element.innerHTML = '';
@@ -202,7 +242,7 @@ function typeWriter(element, text, speed = 100) {
     type();
 }
 
-// Add smooth reveal animations
+// Smooth reveal animations
 function revealOnScroll() {
     const reveals = document.querySelectorAll('.fade-in:not(.visible)');
     
@@ -217,9 +257,22 @@ function revealOnScroll() {
     });
 }
 
+// Theme toggle
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    document.querySelector('.theme-toggle i').className = `fas fa-${isDark ? 'sun' : 'moon'}`;
+}
+
+// Load saved theme
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.querySelector('.theme-toggle i').className = 'fas fa-sun';
+}
+
 window.addEventListener('scroll', revealOnScroll);
 
-// Initialize reveal on load
 document.addEventListener('DOMContentLoaded', revealOnScroll);
 
 // Add click effects to buttons
@@ -232,7 +285,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// Preloader (optional)
+// Preloader
 window.addEventListener('load', function() {
     document.body.classList.add('loaded');
 });
@@ -256,7 +309,6 @@ function smoothAppear() {
         element.style.transition = 'all 0.6s ease';
     });
     
-    // Trigger animations
     setTimeout(() => {
         elements.forEach((element, index) => {
             setTimeout(() => {
@@ -271,19 +323,16 @@ function smoothAppear() {
 document.addEventListener('DOMContentLoaded', function() {
     addFloatingAnimation();
     
-    // Add stagger animation to project cards
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach((card, index) => {
         card.style.transitionDelay = `${index * 0.1}s`;
     });
     
-    // Add stagger animation to expertise items
     const expertiseItems = document.querySelectorAll('.expertise-item');
     expertiseItems.forEach((item, index) => {
         item.style.transitionDelay = `${index * 0.1}s`;
     });
     
-    // Add stagger animation to contact items
     const contactItems = document.querySelectorAll('.contact-item');
     contactItems.forEach((item, index) => {
         item.style.transitionDelay = `${index * 0.1}s`;
@@ -304,7 +353,6 @@ function throttle(func, limit) {
     }
 }
 
-// Apply throttling to scroll events
 const throttledScroll = throttle(function() {
     revealOnScroll();
 }, 100);

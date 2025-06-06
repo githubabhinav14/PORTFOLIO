@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +13,26 @@
     <meta property="og:type" content="website">
     
     <!-- Google Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js for visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- EmailJS for contact form -->
+    <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_GA_ID');
+    </script>
     
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -27,12 +44,17 @@
                 <span class="gradient-text">Abhinav</span>
             </div>
             
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle btn" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+            
             <!-- Desktop Navigation -->
             <div class="nav-menu">
-                <a href="#home" class="nav-link active" data-section="home">Home</a>
-                <a href="#about" class="nav-link" data-section="about">About</a>
-                <a href="#projects" class="nav-link" data-section="projects">Projects</a>
-                <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+                <a href="#home" class="nav-link active" data-section="home" aria-label="Go to Home section">Home</a>
+                <a href="#about" class="nav-link" data-section="about" aria-label="Go to About section">About</a>
+                <a href="#projects" class="nav-link" data-section="projects" aria-label="Go to Projects section">Projects</a>
+                <a href="#contact" class="nav-link" data-section="contact" aria-label="Go to Contact section">Contact</a>
             </div>
             
             <!-- Mobile Menu Button -->
@@ -45,10 +67,10 @@
         
         <!-- Mobile Navigation -->
         <div class="mobile-menu">
-            <a href="#home" class="mobile-nav-link" data-section="home">Home</a>
-            <a href="#about" class="mobile-nav-link" data-section="about">About</a>
-            <a href="#projects" class="mobile-nav-link" data-section="projects">Projects</a>
-            <a href="#contact" class="mobile-nav-link" data-section="contact">Contact</a>
+            <a href="#home" class="mobile-nav-link" data-section="home" aria-label="Go to Home section">Home</a>
+            <a href="#about" class="mobile-nav-link" data-section="about" aria-label="Go to About section">About</a>
+            <a href="#projects" class="mobile-nav-link" data-section="projects" aria-label="Go to Projects section">Projects</a>
+            <a href="#contact" class="mobile-nav-link" data-section="contact" aria-label="Go to Contact section">Contact</a>
         </div>
     </nav>
 
@@ -66,27 +88,27 @@
                 </p>
                 
                 <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="scrollToSection('projects')">
+                    <button class="btn btn-primary" onclick="scrollToSection('projects')" aria-label="View my projects">
                         View My Work
                     </button>
-                    <button class="btn btn-secondary" onclick="scrollToSection('contact')">
+                    <button class="btn btn-secondary" onclick="scrollToSection('contact')" aria-label="Contact me">
                         Get In Touch
                     </button>
                 </div>
                 
                 <!-- Social Links -->
                 <div class="social-links">
-                    <a href="https://github.com/githubabhinav14" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/githubabhinav14" target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub profile">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/abhinav-nallanagula/" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/in/abhinav-nallanagula/" target="_blank" rel="noopener noreferrer" aria-label="Visit my LinkedIn profile">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="mailto:abhinavnallanagula14@gmail.com">
+                    <a href="mailto:abhinavnallanagula14@gmail.com" aria-label="Email me">
                         <i class="fas fa-envelope"></i>
                     </a>
                 </div>
-
+                
                 <div class="scroll-indicator">
                     <i class="fas fa-chevron-down"></i>
                 </div>
@@ -188,8 +210,9 @@
             
             <div class="projects-grid">
                 <div class="project-card">
+                    <img src="images/nexus.jpg" alt="Nexus project screenshot" class="project-image" loading="lazy">
                     <div class="project-header">
-                        <h3 class="project-title">Nexus – Where Education meets innovation</h3>
+                        <h3 class="project-title">Nexus – Education meets innovation</h3>
                         <span class="project-date">Mar 2025</span>
                     </div>
                     <p class="project-description">
@@ -212,16 +235,17 @@
                         <span class="tech-tag gray">AWS</span>
                     </div>
                     <div class="project-buttons">
-                        <button class="btn btn-project blue">
+                        <a href="https://nexus-demo.example.com" class="btn btn-project blue" target="_blank" aria-label="View Nexus live demo">
                             <i class="fas fa-external-link-alt"></i> Live Demo
-                        </button>
-                        <button class="btn btn-outline">
+                        </a>
+                        <a href="https://github.com/githubabhinav14/PORTFOLIO.git" class="btn btn-outline" target="_blank" aria-label="View Nexus source code">
                             <i class="fab fa-github"></i> View Code
-                        </button>
+                        </a>
                     </div>
                 </div>
 
                 <div class="project-card">
+                    <img src="images/food.png" alt="Food Hero project screenshot" class="project-image" loading="lazy">
                     <div class="project-header">
                         <h3 class="project-title">Food Hero – Donate Food Deliver Hope</h3>
                         <span class="project-date">Jan 2025</span>
@@ -247,12 +271,12 @@
                         <span class="tech-tag orange">MongoDB</span>
                     </div>
                     <div class="project-buttons">
-                        <button class="btn btn-project green">
+                        <a href="https://food-hero-demo.example.com" class="btn btn-project green" target="_blank" aria-label="View Food Hero live demo">
                             <i class="fas fa-external-link-alt"></i> Live Demo
-                        </button>
-                        <button class="btn btn-outline">
+                        </a>
+                        <a href="https://github.com/githubabhinav14/food-hero" class="btn btn-outline" target="_blank" aria-label="View Food Hero source code">
                             <i class="fab fa-github"></i> View Code
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -274,17 +298,20 @@
                             <li><i class="fas fa-check-circle"></i> Focus Mode – Minimal design to reduce distractions.</li>
                         </ul>
                     </div>
+                    <div class="chart-container">
+                        <canvas id="typingSpeedChart"></canvas>
+                    </div>
                     <div class="project-tech">
                         <span class="tech-tag purple">Python</span>
                         <span class="tech-tag indigo">Visual Studio Code</span>
                     </div>
                     <div class="project-buttons">
-                        <button class="btn btn-project purple">
+                        <a href="https://typing-accuracy-demo.example.com" class="btn btn-project purple" target="_blank" aria-label="View Typing Accuracy live demo">
                             <i class="fas fa-external-link-alt"></i> Live Demo
-                        </button>
-                        <button class="btn btn-outline">
+                        </a>
+                        <a href="https://github.com/githubabhinav14/typing-accuracy" class="btn btn-outline" target="_blank" aria-label="View Typing Accuracy source code">
                             <i class="fab fa-github"></i> View Code
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -371,7 +398,7 @@
                                 <textarea id="message" name="message" rows="4" placeholder="Tell me about your project or just say hello!" required></textarea>
                             </div>
                             
-                            <button type="submit" class="btn btn-primary btn-form">
+                            <button type="submit" class="btn btn-primary btn-form" aria-label="Send message">
                                 <span class="btn-text">Send Message</span>
                                 <i class="fas fa-paper-plane"></i>
                             </button>
@@ -394,16 +421,16 @@
                 </div>
                 
                 <div class="footer-social">
-                    <a href="https://github.com/githubabhinav14" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/githubabhinav14" target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub profile">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/abhinav-nallanagula/" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/in/abhinav-nallanagula/" target="_blank" rel="noopener noreferrer" aria-label="Visit my LinkedIn profile">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="mailto:abhinavnallanagula14@gmail.com">
+                    <a href="mailto:abhinavnallanagula14@gmail.com" aria-label="Email me">
                         <i class="fas fa-envelope"></i>
                     </a>
-                    <a href="tel:+918985665850">
+                    <a href="tel:+918985665850" aria-label="Call me">
                         <i class="fas fa-phone"></i>
                     </a>
                 </div>
