@@ -358,3 +358,18 @@ const throttledScroll = throttle(function() {
 }, 100);
 
 window.addEventListener('scroll', throttledScroll);
+
+document.querySelectorAll('.project-image').forEach(img => {
+    img.addEventListener('click', () => {
+        const popup = document.createElement('div');
+        popup.classList.add('popup');
+        popup.innerHTML = `
+            <img src="${img.src}" alt="${img.alt}">
+            <span class="close-btn">✖</span>
+        `;
+        document.body.appendChild(popup);
+        document.querySelector('.close-btn').addEventListener('click', () => {
+            popup.remove();
+        });
+    });
+});
