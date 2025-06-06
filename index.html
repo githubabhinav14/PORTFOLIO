@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhinav Portfolio</title>
+    <meta name="description" content="Software Developer specializing in MERN Stack, Python, and C++. View my projects including FinTech Portfolio Tracker, TeamBoard Task Manager, and more. Get in touch for collaboration opportunities.">
+    
+    <!-- Open Graph tags for social media -->
+    <meta property="og:title" content="Abhinav Nallanagula - Software Developer Portfolio">
+    <meta property="og:description" content="Professional software developer portfolio showcasing full-stack projects, machine learning applications, and technical expertise.">
+    <meta property="og:type" content="website">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="gradient-text">Abhinav</span>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active" data-section="home">Home</a>
+                <a href="#about" class="nav-link" data-section="about">About</a>
+                <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-menu">
+            <a href="#home" class="mobile-nav-link" data-section="home">Home</a>
+            <a href="#about" class="mobile-nav-link" data-section="about">About</a>
+            <a href="#projects" class="mobile-nav-link" data-section="projects">Projects</a>
+            <a href="#contact" class="mobile-nav-link" data-section="contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Abhinav Nallanagula</span>
+                </h1>
+                <h2 class="hero-subtitle">Software Developer</h2>
+                <p class="hero-description">
+                    Passionate about building innovative web applications with modern technologies. 
+                    Specializing in Web development, Python, and creating seamless user experiences.
+                </p>
+                
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('projects')">
+                        View My Work
+                    </button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('contact')">
+                        Get In Touch
+                    </button>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="social-links">
+                    <a href="https://github.com/githubabhinav14" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/abhinav-nallanagula/" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:abhinavnallanagula14@gmail.com">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+
+                <div class="scroll-indicator">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">
+                    I'm a dedicated software developer with a passion for creating efficient, scalable, and user-friendly applications.
+                </p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>My Expertise</h3>
+                    <p>
+                        With expertise in full-stack development, I specialize in building modern web applications using the MERN stack. 
+                        I'm passionate about clean code, user experience, and solving complex problems through technology.
+                    </p>
+                    
+                    <div class="expertise-list">
+                        <div class="expertise-item">
+                            <div class="expertise-dot dot-blue"></div>
+                            <span>Full-Stack Web Development</span>
+                        </div>
+                        <div class="expertise-item">
+                            <div class="expertise-dot dot-purple"></div>
+                            <span>Machine Learning & Data Analysis</span>
+                        </div>
+                        <div class="expertise-item">
+                            <div class="expertise-dot dot-green"></div>
+                            <span>Algorithm Design & Problem Solving</span>
+                        </div>
+                        <div class="expertise-item">
+                            <div class="expertise-dot dot-pink"></div>
+                            <span>Real-time Applications & WebSockets</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="technologies">
+                    <h3>Technologies</h3>
+                    <div class="tech-grid">
+                        <div class="tech-category">
+                            <h4>Frontend</h4>
+                            <div class="tech-tags">
+                                <span class="tech-tag blue">React.js</span>
+                                <span class="tech-tag blue">HTML5</span>
+                                <span class="tech-tag blue">CSS3</span>
+                                <span class="tech-tag blue">JavaScript</span>
+                                <span class="tech-tag blue">Tailwind CSS</span>
+                            </div>
+                        </div>
+                        <div class="tech-category">
+                            <h4>Backend</h4>
+                            <div class="tech-tags">
+                                <span class="tech-tag green">Node.js</span>
+                                <span class="tech-tag green">Express</span>
+                                <span class="tech-tag green">MongoDB</span>
+                            </div>
+                        </div>
+                        <div class="tech-category">
+                            <h4>Languages</h4>
+                            <div class="tech-tags">
+                                <span class="tech-tag purple">JavaScript</span>
+                                <span class="tech-tag purple">Python</span>
+                                <span class="tech-tag purple">C</span>
+                                <span class="tech-tag purple">Java</span>
+                            </div>
+                        </div>
+                        <div class="tech-category">
+                            <h4>Tools</h4>
+                            <div class="tech-tags">
+                                <span class="tech-tag orange">Git</span>
+                                <span class="tech-tag orange">GitHub</span>
+                                <span class="tech-tag orange">JWT + bcrypt</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">
+                    Here are some of my recent projects that showcase my skills in full-stack development, machine learning, and problem-solving.
+                </p>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Nexus – Where Education meets innovation</h3>
+                        <span class="project-date">Mar 2025</span>
+                    </div>
+                    <p class="project-description">
+                        Nexus is an innovative intra-college platform that revolutionizes communication, collaboration, and resource sharing within educational institutions. It features a hierarchical user system from Principal to Students where everyone has a personalized profile and can showcase skills through multimedia. Core modules include virtual classrooms, marks and task management, secure fee payment, and event coordination. The platform ensures data privacy, streamlined academic operations, and enhanced student teacher engagement. It bridges the gap between education and digital innovation for a smarter campus experience.
+                    </p>
+                    <div class="project-features">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Virtual Classrooms – Secure, class-wise access to study materials</li>
+                            <li><i class="fas fa-check-circle"></i> Marks Management – Seamless evaluation with email-delivered results</li>
+                            <li><i class="fas fa-check-circle"></i> Task Tracking – Assignments, reminders, and progress updates.</li>
+                            <li><i class="fas fa-check-circle"></i> Fee & Event System – Easy online payments and event registrations.</li>
+                            <li><i class="fas fa-check-circle"></i> Showcase & Forums – Highlight skills and engage in academics</li>
+                        </ul>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag blue">React JS</span>
+                        <span class="tech-tag cyan">Tailwind CSS</span>
+                        <span class="tech-tag orange">Spring Boot</span>
+                        <span class="tech-tag gray">AWS</span>
+                    </div>
+                    <div class="project-buttons">
+                        <button class="btn btn-project blue">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </button>
+                        <button class="btn btn-outline">
+                            <i class="fab fa-github"></i> View Code
+                        </button>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Food Hero – Donate Food Deliver Hope</h3>
+                        <span class="project-date">Jan 2025</span>
+                    </div>
+                    <p class="project-description">
+                        This project aims to build a food donation website that connects donors with people and organizations in need. It helps reduce food waste and hunger through real-time updates and location-based tracking. The platform enables timely distribution of surplus food before it spoils. Donations can come from households, restaurants, and grocery stores. By partnering with NGOs, it creates a sustainable, tech-driven solution to food insecurity.
+                    </p>
+                    <div class="project-features">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Real-time updates – Post food instantly.</li>
+                            <li><i class="fas fa-check-circle"></i> Location tracking – Find nearby food.</li>
+                            <li><i class="fas fa-check-circle"></i> Inventory management – Manage donations.</li>
+                            <li><i class="fas fa-check-circle"></i> NGO integration – Connect with charities.</li>
+                            <li><i class="fas fa-check-circle"></i> Donor signup – Easy donor registration.</li>
+                            <li><i class="fas fa-check-circle"></i> Alerts – Get instant food notifications.</li>
+                        </ul>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag blue">HTML5</span>
+                        <span class="tech-tag purple">CSS3</span>
+                        <span class="tech-tag cyan">JavaScript</span>
+                        <span class="tech-tag orange">MongoDB</span>
+                    </div>
+                    <div class="project-buttons">
+                        <button class="btn btn-project green">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </button>
+                        <button class="btn btn-outline">
+                            <i class="fab fa-github"></i> View Code
+                        </button>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Typing Accuracy</h3>
+                        <span class="project-date">Nov 2025</span>
+                    </div>
+                    <p class="project-description">
+                        This project focuses on improving fast and accurate typing by emphasizing proper finger placement, muscle memory, and focused practice. It highlights the importance of concentration and minimizing distractions to reduce errors. Regular typing exercises and gradual speed increases play a key role in enhancing performance. The ultimate goal is to develop efficient, error-free typing skills through consistent, mindful practice.
+                    </p>
+                    <div class="project-features">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Typing Guidance – Teaches proper finger placement and posture.</li>
+                            <li><i class="fas fa-check-circle"></i> Accuracy Tracking – Highlights errors in real time.</li>
+                            <li><i class="fas fa-check-circle"></i> Speed Challenges – Custom difficulty based on skill level.</li>
+                            <li><i class="fas fa-check-circle"></i> Progress Reports – Tracks speed and accuracy growth.</li>
+                            <li><i class="fas fa-check-circle"></i> Focus Mode – Minimal design to reduce distractions.</li>
+                        </ul>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag purple">Python</span>
+                        <span class="tech-tag indigo">Visual Studio Code</span>
+                    </div>
+                    <div class="project-buttons">
+                        <button class="btn btn-project purple">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </button>
+                        <button class="btn btn-outline">
+                            <i class="fab fa-github"></i> View Code
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Let's Work Together</h2>
+                <p class="section-subtitle">
+                    I'm always excited to work on new projects and collaborate with amazing people. 
+                    Feel free to reach out if you'd like to discuss opportunities or just say hello!
+                </p>
+            </div>
+            
+            <div class="contact-content">
+                <!-- Contact Information -->
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <div class="contact-icon blue">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <p>Email</p>
+                                <a href="mailto:abhinavnallanagula14@gmail.com">abhinavnallanagula14@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon green">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <p>Phone</p>
+                                <a href="tel:+918985665850">+91 8985665850</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon dark">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="contact-details">
+                                <p>GitHub</p>
+                                <a href="https://github.com/githubabhinav14" target="_blank" rel="noopener noreferrer">github.com/githubabhinav14</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon blue">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <div class="contact-details">
+                                <p>LinkedIn</p>
+                                <a href="https://www.linkedin.com/in/abhinav-nallanagula/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <div class="contact-form-card">
+                        <h3>Send a Message</h3>
+                        
+                        <form id="contactForm" class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="4" placeholder="Tell me about your project or just say hello!" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-form">
+                                <span class="btn-text">Send Message</span>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>
+                        <span class="gradient-text">Abhinav Nallanagula</span>
+                    </h3>
+                    <p>Software Developer</p>
+                </div>
+                
+                <div class="footer-social">
+                    <a href="https://github.com/githubabhinav14" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/abhinav-nallanagula/" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:abhinavnallanagula14@gmail.com">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="tel:+918985665850">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>© 2025 Abhinav Nallanagula. Built with passion and attention to detail.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast">
+        <i class="fas fa-check-circle toast-icon"></i>
+        <span>Message Sent! I'll get back to you soon.</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
