@@ -1,4 +1,4 @@
-//script.js
+//script.js hi
 
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
