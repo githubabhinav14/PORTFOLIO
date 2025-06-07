@@ -44,12 +44,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Scroll indicator keyboard navigation
+    // Scroll indicator handling
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
+        // Click event
+        scrollIndicator.addEventListener('click', function() {
+            scrollIndicator.classList.add('disappear');
+            scrollToSection('about');
+        });
+        
+        // Keyboard navigation
         scrollIndicator.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
+                scrollIndicator.classList.add('disappear');
                 scrollToSection('about');
             }
         });
@@ -359,20 +367,20 @@ function addFloatingAnimation() {
 
 // Smooth appearance for elements
 function smoothAppear() {
-    const elements = document.querySelectorAll('section');
+    const sections = document.querySelectorAll('section');
     
-    elements.forEach(element => {
+    sections.forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(20px)';
         element.style.transition = 'all 0.6s ease';
     });
     
     setTimeout(() => {
-        elements.forEach((element, index) => {
+        sections.forEach((element, index) => {
             setTimeout(() => {
                 element.style.opacity = '1';
                 element.style.transform = 'translateY(0)';
-            }, index * 200);
+            }, index * 100);
         });
     }, 100);
 }
