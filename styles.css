@@ -207,6 +207,29 @@ body.dark-mode {
     font-size: 1rem;
 }
 
+.download-cv {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+.download-cv:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(124, 58, 237, 0.3);
+}
+
+.download-cv i {
+    font-size: 0.9rem;
+}
+
 /* Navigation */
 .navbar {
     position: fixed;
@@ -240,6 +263,7 @@ body.dark-mode {
 .nav-menu {
     display: flex;
     gap: 2rem;
+    align-items: center;
 }
 
 .nav-link {
@@ -315,6 +339,16 @@ body.dark-mode {
 
 .mobile-nav-link:hover {
     color: var(--gradient-start);
+}
+
+.mobile-nav-link.download-cv {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 /* Hero Section */
@@ -944,7 +978,7 @@ body.dark-mode .tech-tag.white { background: #312e81; color: #c7d2fe; }
     .nav-menu {
         gap: 1.5rem;
     }
-    .nav-link {
+    .nav-link, .download-cv {
         font-size: 0.95rem;
     }
     .about-content {
@@ -1042,6 +1076,10 @@ body.dark-mode .tech-tag.white { background: #312e81; color: #c7d2fe; }
     .mobile-nav-link {
         font-size: 0.9rem;
         padding: 0.4rem;
+    }
+    .mobile-nav-link.download-cv {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
     }
     .hero-title {
         font-size: clamp(2rem, 8vw, 2.5rem);

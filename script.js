@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Navigation links
-    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link:not(.download-cv)');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', revealOnScroll);
 
 // Add click effects to buttons
 document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('btn')) {
+    if (e.target.classList.contains('btn') || e.target.classList.contains('download-cv')) {
         e.target.style.transform = 'scale(0.98)';
         setTimeout(() => {
             e.target.style.transform = '';
@@ -356,7 +356,7 @@ function throttle(func, limit) {
         const args = arguments;
         const context = this;
         if (!inThrottle) {
-            func.apply(context, args);
+            func.apply(this, args);
             inThrottle = true;
             setTimeout(() => inThrottle = false, limit);
         }
@@ -378,7 +378,7 @@ document.querySelectorAll('.project-image').forEach(img => {
             <span class="close-btn">✖</span>
         `;
         document.body.appendChild(popup);
-        document.querySelector('.close-btn').addEventListener('click', () => {
+        document.querySelectorAll('.close-btn').addEventListener('click', () => {
             popup.remove();
         });
     });
