@@ -92,23 +92,49 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize chart
     const ctx = document.getElementById('typingSpeedChart')?.getContext('2d');
     if (ctx) {
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                datasets: [{
+        const chartData = {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [
+                {
                     label: 'Typing Speed (WPM)',
                     data: [30, 45, 60, 75],
                     borderColor: '#7c3aed',
                     backgroundColor: 'rgba(124, 58, 237, 0.2)',
                     fill: true,
                     tension: 0.4
-                }]
-            },
+                },
+                {
+                    label: 'Typing Accuracy (%)',
+                    data: [85, 90, 92, 95],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    hidden: true // Initially hidden
+                }
+            ]
+        };
+
+        window.typingChart = new Chart(ctx, {
+            type: 'line',
+            data: chartData,
             options: {
                 responsive: true,
                 scales: {
                     y: { beginAtZero: true }
+                },
+                plugins: {
+                    tooltip: { mode: 'index', intersect: false },
+                    legend: {
+                        onClick: (e, legendItem, legend) => {
+                            const index = legendItem.datasetIndex;
+                            const ci = legend.chart;
+                            ci.data.datasets.forEach((ds, i) => {
+                                ds.hidden = i !== index;
+                            });
+                            ci.update();
+                        }
+                    }
                 }
             }
         });
@@ -125,15 +151,26 @@ document.addEventListener('DOMContentLoaded', function() {
         const name = formData.get('name').trim();
         const email = formData.get('email').trim();
         const message = formData.get('message').trim();
+        const honeypot = formData.get('honeypot')?.trim() || ''; // Honeypot field
         
-        // Basic email regex
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!name || !email || !message) {
-            showToast('Please fill in all fields.', false);
+        // Validation
+        if (honeypot) {
+            showToast('Spam detected!', false);
             return;
         }
-        if (!emailRegex.test(email)) {
+        
+        if (name.length < 2) {
+            showToast('Name must be at least 2 characters long.', false);
+            return;
+        }
+        
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             showToast('Please enter a valid email address.', false);
+            return;
+        }
+        
+        if (message.length < 10) {
+            showToast('Message must be at least 10 characters long.', false);
             return;
         }
         
@@ -378,7 +415,7 @@ document.querySelectorAll('.project-image').forEach(img => {
             <span class="close-btn">✖</span>
         `;
         document.body.appendChild(popup);
-        document.querySelectorAll('.close-btn').addEventListener('click', () => {
+        document.querySelector('.close-btn').addEventListener('click', () => {
             popup.remove();
         });
     });

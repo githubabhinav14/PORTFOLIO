@@ -302,6 +302,10 @@
                     </div>
                     <div class="chart-container">
                         <canvas id="typingSpeedChart"></canvas>
+                        <div class="chart-toggle">
+                            <button class="btn btn-secondary" onclick="typingChart.data.datasets[0].hidden = false; typingChart.data.datasets[1].hidden = true; typingChart.update();">Show Speed</button>
+                            <button class="btn btn-secondary" onclick="typingChart.data.datasets[0].hidden = true; typingChart.data.datasets[1].hidden = false; typingChart.update();">Show Accuracy</button>
+                        </div>
                     </div>
                     <div class="project-tech">
                         <span class="tech-tag purple">Python</span>
@@ -398,6 +402,11 @@
                             <div class="form-group">
                                 <label for="message">Message</label>
                                 <textarea id="message" name="message" rows="4" placeholder="Tell me about your project or just say hello!" required></textarea>
+                            </div>
+                            
+                            <div class="form-group" style="display: none;">
+                                <label for="honeypot">Leave this empty</label>
+                                <input type="text" id="honeypot" name="honeypot">
                             </div>
                             
                             <button type="submit" class="btn btn-primary btn-form" aria-label="Send message">
