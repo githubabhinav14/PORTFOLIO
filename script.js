@@ -44,6 +44,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Scroll indicator keyboard navigation
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                scrollToSection('about');
+            }
+        });
+    }
+    
     // Scroll spy for navigation
     window.addEventListener('scroll', function() {
         const sections = ['home', 'about', 'projects', 'contact'];

@@ -442,6 +442,18 @@ body.dark-mode .hero {
 
 .scroll-indicator {
     animation: bounce 2s infinite;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.scroll-indicator:hover {
+    transform: scale(1.2);
+    color: var(--gradient-start);
+}
+
+.scroll-indicator:focus {
+    outline: 2px solid var(--gradient-start);
+    outline-offset: 2px;
 }
 
 .scroll-indicator i {
