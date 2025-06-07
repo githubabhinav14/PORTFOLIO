@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize EmailJS
-    emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS public key
+    emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS Public Key from https://dashboard.emailjs.com/
     
     // Mobile menu toggle
     const hamburger = document.querySelector('.hamburger');
@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
     hamburger.addEventListener('click', function() {
         mobileMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
+        const isExpanded = hamburger.classList.contains('active');
+        hamburger.setAttribute('aria-expanded', isExpanded);
     });
     
     // Navigation links
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Close mobile menu if open
             mobileMenu.classList.remove('active');
             hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
             
             // Update active link
             updateActiveNavLink(targetSection);
@@ -35,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 scrollToSection(this.getAttribute('data-section'));
                 mobileMenu.classList.remove('active');
                 hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
                 updateActiveNavLink(this.getAttribute('data-section'));
             }
         });
@@ -95,8 +99,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 datasets: [{
                     label: 'Typing Speed (WPM)',
                     data: [30, 45, 60, 75],
-                    borderColor: '#4f46e5',
-                    backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                    borderColor: '#7c3aed',
+                    backgroundColor: 'rgba(124, 58, 237, 0.2)',
                     fill: true,
                     tension: 0.4
                 }]
@@ -118,12 +122,18 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         const formData = new FormData(this);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const message = formData.get('message');
+        const name = formData.get('name').trim();
+        const email = formData.get('email').trim();
+        const message = formData.get('message').trim();
         
+        // Basic email regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!name || !email || !message) {
             showToast('Please fill in all fields.', false);
+            return;
+        }
+        if (!emailRegex.test(email)) {
+            showToast('Please enter a valid email address.', false);
             return;
         }
         
@@ -156,7 +166,7 @@ function showToast(message, isSuccess = true) {
     toastNotification.querySelector('span').textContent = message;
     toastNotification.querySelector('.toast-icon').className = `fas ${isSuccess ? 'fa-check-circle' : 'fa-exclamation-circle'} toast-icon`;
     toastNotification.style.background = isSuccess 
-        ? 'linear-gradient(135deg, #4f46e5, #c026d3)' 
+        ? 'linear-gradient(135deg, #7c3aed, #a855f7)' 
         : 'linear-gradient(135deg, #ef4444, #f87171)';
     
     toastNotification.classList.add('visible');
