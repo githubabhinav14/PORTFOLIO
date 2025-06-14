@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Scroll spy for navigation
-    window.addEventListener('scroll', function() {
+    const throttledScrollSpy = throttle(function() {
         const sections = ['home', 'about', 'projects', 'achievements', 'contact'];
         const scrollPos = window.scrollY + 100;
         
@@ -90,7 +90,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-    });
+    }, 100);
+    
+    window.addEventListener('scroll', throttledScrollSpy);
     
     // Intersection Observer for animations
     const observerOptions = {
@@ -102,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Unobserve after animation to improve performance
             }
         });
     }, observerOptions);
@@ -239,22 +242,35 @@ document.addEventListener('DOMContentLoaded', function() {
         item.addEventListener('click', () => {
             const src = item.getAttribute('data-src') || item.src;
             const alt = item.alt || 'Certificate Image';
-            const popup = document.createElement('div');
-            popup.classList.add('popup');
-            popup.innerHTML = `
-                <img src="${src}" alt="${alt}">
-                <span class="close-btn">✖</span>
-            `;
-            document.body.appendChild(popup);
-            document.querySelector('.close-btn').addEventListener('click', () => {
-                popup.remove();
-            });
-            // Close popup on click outside image
-            popup.addEventListener('click', (e) => {
-                if (e.target === popup) {
-                    popup.remove();
+            if (src && !src.endsWith('.pdf')) { // Only open popups for non-PDF files
+                const popup = document.createElement('div');
+                popup.classList.add('popup');
+                popup.innerHTML = `
+                    <img src="${src}" alt="${alt}">
+                    <span class="close-btn">✖</span>
+                `;
+                document.body.appendChild(popup);
+                
+                const closeBtn = popup.querySelector('.close-btn');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => popup.remove());
                 }
-            });
+                
+                // Close popup on click outside image
+                popup.addEventListener('click', (e) => {
+                    if (e.target === popup) {
+                        popup.remove();
+                    }
+                });
+                
+                // Close popup with Escape key
+                document.addEventListener('keydown', function closeOnEsc(e) {
+                    if (e.key === 'Escape') {
+                        popup.remove();
+                        document.removeEventListener('keydown', closeOnEsc);
+                    }
+                });
+            }
         });
     });
 });
@@ -423,7 +439,7 @@ styleSheet.textContent = `
 `;
 document.head.appendChild(styleSheet);
 
-// Smooth appearance for elements
+// Smooth appearance for sections
 function smoothAppear() {
     const sections = document.querySelectorAll('section');
     
@@ -470,22 +486,19 @@ document.addEventListener('DOMContentLoaded', function() {
     smoothAppear();
 });
 
-// Performance optimization: throttle scroll events
+// Performance optimization: throttle function
 function throttle(func, limit) {
     let inThrottle;
     return function() {
         const args = arguments;
         const context = this;
         if (!inThrottle) {
-            func.apply(this, args);
+            func.apply(context, args);
             inThrottle = true;
             setTimeout(() => inThrottle = false, limit);
         }
-    }
+    };
 }
 
-const throttledScroll = throttle(function() {
-    revealOnScroll();
-}, 100);
-
+const throttledScroll = throttle(revealOnScroll, 100);
 window.addEventListener('scroll', throttledScroll);
