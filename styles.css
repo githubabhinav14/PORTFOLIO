@@ -269,8 +269,9 @@ body.dark-mode {
 
 .nav-menu {
     display: flex;
-    gap: 2rem;
+    gap: 0.75rem; /* Reduced gap between nav links for a tighter layout */
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .nav-link {
@@ -278,22 +279,26 @@ body.dark-mode {
     color: #6b7280;
     font-weight: 500;
     font-size: clamp(0.95rem, 2vw, 1rem);
-    transition: color 0.3s ease, transform 0.2s ease;
+    padding: 0.5rem 0.75rem; /* Adjusted padding to prevent cramped look */
     position: relative;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
-.nav-link:hover,
+.nav-link:hover {
+    color: var(--gradient-start);
+}
+
 .nav-link.active {
     color: var(--gradient-start);
-    transform: translateY(-1px);
+    font-weight: 600;
 }
 
 .nav-link.active::after {
     content: '';
     position: absolute;
     bottom: -4px;
-    left: 0;
-    width: 100%;
+    left: 0.75rem;
+    width: calc(100% - 1.5rem);
     height: 2px;
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
 }
@@ -335,17 +340,37 @@ body.dark-mode {
     border-top: 1px solid rgba(107, 114, 128, 0.3);
 }
 
+.mobile-menu.active {
+    display: flex;
+}
+
 .mobile-nav-link {
     text-decoration: none;
     color: #6b7280;
     font-weight: 500;
     font-size: clamp(0.9rem, 2.5vw, 1rem);
     padding: 0.5rem 0;
+    position: relative;
     transition: color 0.3s ease;
 }
 
 .mobile-nav-link:hover {
     color: var(--gradient-start);
+}
+
+.mobile-nav-link.active {
+    color: var(--gradient-start);
+    font-weight: 600;
+}
+
+.mobile-nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
 }
 
 .mobile-nav-link.download-cv {
@@ -775,7 +800,7 @@ body.dark-mode .tech-tag.white { background: #312e81; color: #c7d2fe; }
     max-height: 150px;
     object-fit: contain;
     border-radius: 8px;
-    margin-bottom: 1.5rem; /* Increased margin for better spacing */
+    margin-bottom: 1.5rem;
     border: 1px solid #4b5563;
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -811,29 +836,28 @@ body.dark-mode .tech-tag.white { background: #312e81; color: #c7d2fe; }
 
 .achievement-description {
     color: #9ca3af;
-    margin-bottom: 2rem; /* Increased margin for better spacing */
+    margin-bottom: 2rem;
     line-height: 1.6;
     font-size: clamp(0.85rem, 2vw, 1rem);
 }
 
 .achievement-buttons {
     display: flex;
-    flex-direction: column; /* Stack buttons vertically */
-    gap: 1rem; /* Increased gap between buttons */
-    width: 100%; /* Ensure buttons take full width */
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
 }
 
 .achievement-buttons .btn-project, 
 .achievement-buttons .btn-outline {
-    width: 100%; /* Full width buttons */
-    padding: 12px; /* Consistent padding */
-    font-size: clamp(0.9rem, 2vw, 1rem); /* Consistent font size */
-    justify-content: center; /* Center the content */
+    width: 100%;
+    padding: 12px;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    justify-content: center;
 }
 
-/* Updated button styles to match the image */
 .achievement-buttons .btn-project.blue {
-    background: linear-gradient(135deg, #6B48FF, #E93BF8); /* Gradient to match the image */
+    background: linear-gradient(135deg, #6B48FF, #E93BF8);
     color: white;
     box-shadow: 0 4px 12px rgba(107, 72, 255, 0.3);
 }
@@ -1105,10 +1129,11 @@ body.dark-mode .tech-tag.white { background: #312e81; color: #c7d2fe; }
 /* Responsive Design */
 @media (max-width: 1024px) {
     .nav-menu {
-        gap: 1.5rem;
+        gap: 0.5rem; /* Further reduced gap for medium screens */
     }
     .nav-link, .download-cv {
         font-size: 0.95rem;
+        padding: 0.5rem 0.5rem; /* Reduced padding for tighter fit */
     }
     .about-content {
         gap: 2rem;

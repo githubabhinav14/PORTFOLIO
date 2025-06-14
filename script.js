@@ -7,6 +7,29 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('EmailJS initialization failed:', error);
     }
     
+    // Theme Toggle
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        const themeIcon = document.querySelector('.theme-toggle i');
+        if (themeIcon) {
+            themeIcon.className = `fas fa-${isDark ? 'sun' : 'moon'}`;
+        }
+    }
+    
+    // Load saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        const themeIcon = document.querySelector('.theme-toggle i');
+        if (themeIcon) themeIcon.className = 'fas fa-sun';
+    }
+    
+    const themeButton = document.querySelector('.theme-toggle');
+    if (themeButton) {
+        themeButton.addEventListener('click', toggleTheme);
+    }
+    
     // Mobile menu toggle
     const hamburger = document.querySelector('.hamburger');
     const mobileMenu = document.querySelector('.mobile-menu');
@@ -44,13 +67,14 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                scrollToSection(this.getAttribute('data-section'));
+                const targetSection = this.getAttribute('data-section');
+                scrollToSection(targetSection);
                 if (mobileMenu && hamburger) {
                     mobileMenu.classList.remove('active');
                     hamburger.classList.remove('active');
                     hamburger.setAttribute('aria-expanded', 'false');
                 }
-                updateActiveNavLink(this.getAttribute('data-section'));
+                updateActiveNavLink(targetSection);
             }
         });
     });
@@ -76,8 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Scroll spy for navigation
     const throttledScrollSpy = throttle(function() {
-        const sections = ['home', 'about', 'projects', 'achievements', 'contact'];
-        const scrollPos = window.scrollY + 100;
+        const sections = ['home', 'about', 'projects', 'achievements', 'education', 'contact'];
+        const scrollPos = window.scrollY + 100; // Offset for navbar height
         
         sections.forEach(sectionId => {
             const element = document.getElementById(sectionId);
@@ -273,6 +297,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Add floating animation to social links
+    addFloatingAnimation();
+    
+    // Smooth appearance for sections
+    smoothAppear();
+    
+    // Initialize all animations
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach((card, index) => {
+        card.style.transitionDelay = `${index * 0.1}s`;
+    });
+    
+    const achievementCards = document.querySelectorAll('.achievement-card');
+    achievementCards.forEach((card, index) => {
+        card.style.transitionDelay = `${index * 0.1}s`;
+    });
+    
+    const expertiseItems = document.querySelectorAll('.expertise-item');
+    expertiseItems.forEach((item, index) => {
+        item.style.transitionDelay = `${index * 0.1}s`;
+    });
+    
+    const contactItems = document.querySelectorAll('.contact-item');
+    contactItems.forEach((item, index) => {
+        item.style.transitionDelay = `${index * 0.1}s`;
+    });
 });
 
 // Function to show toast notification
@@ -302,14 +353,15 @@ function scrollToSection(sectionId) {
             top: offsetTop,
             behavior: 'smooth'
         });
+        // Update active link after scrolling completes
+        setTimeout(() => updateActiveNavLink(sectionId), 500);
     }
 }
 
 // Update active navigation link
 function updateActiveNavLink(activeSection) {
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    navLinks.forEach(link => {
+    const allLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+    allLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('data-section') === activeSection) {
             link.classList.add('active');
@@ -339,6 +391,12 @@ function addAnimationClasses() {
     
     const achievementCards = document.querySelectorAll('.achievement-card');
     achievementCards.forEach((card, index) => {
+        card.classList.add('fade-in');
+        card.style.transitionDelay = `${index * 0.1}s`;
+    });
+    
+    const educationCards = document.querySelectorAll('.education-card');
+    educationCards.forEach((card, index) => {
         card.classList.add('fade-in');
         card.style.transitionDelay = `${index * 0.1}s`;
     });
@@ -383,26 +441,6 @@ function revealOnScroll() {
         }
     });
 }
-
-// Theme toggle
-function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    const themeIcon = document.querySelector('.theme-toggle i');
-    if (themeIcon) {
-        themeIcon.className = `fas fa-${isDark ? 'sun' : 'moon'}`;
-    }
-}
-
-// Load saved theme
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-    const themeIcon = document.querySelector('.theme-toggle i');
-    if (themeIcon) themeIcon.className = 'fas fa-sun';
-}
-
-window.addEventListener('scroll', revealOnScroll);
 
 // Add click effects to buttons
 document.addEventListener('click', function(e) {
@@ -458,33 +496,6 @@ function smoothAppear() {
         });
     }, 100);
 }
-
-// Initialize all animations
-document.addEventListener('DOMContentLoaded', function() {
-    addFloatingAnimation();
-    
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach((card, index) => {
-        card.style.transitionDelay = `${index * 0.1}s`;
-    });
-    
-    const achievementCards = document.querySelectorAll('.achievement-card');
-    achievementCards.forEach((card, index) => {
-        card.style.transitionDelay = `${index * 0.1}s`;
-    });
-    
-    const expertiseItems = document.querySelectorAll('.expertise-item');
-    expertiseItems.forEach((item, index) => {
-        item.style.transitionDelay = `${index * 0.1}s`;
-    });
-    
-    const contactItems = document.querySelectorAll('.contact-item');
-    contactItems.forEach((item, index) => {
-        item.style.transitionDelay = `${index * 0.1}s`;
-    });
-    
-    smoothAppear();
-});
 
 // Performance optimization: throttle function
 function throttle(func, limit) {
