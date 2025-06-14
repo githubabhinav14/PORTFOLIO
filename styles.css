@@ -202,7 +202,7 @@ body.dark-mode {
     padding: 8px;
     width: 40px;
     height: 40px;
-    order: -1; /* Moves toggle to the left of the logo */
+    order: -1;
 }
 
 .theme-toggle:hover {
@@ -745,6 +745,83 @@ body.dark-mode .tech-tag.white { background: #312e81; color: #c7d2fe; }
     margin-bottom: 1.5rem;
 }
 
+/* Achievements & Certifications Section */
+.achievements {
+    background: var(--card-bg);
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(1.5rem, 4vw, 2rem);
+}
+
+.achievement-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: clamp(1.5rem, 4vw, 2rem);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.achievement-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.certificate-image {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #4b5563;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.certificate-image:hover {
+    transform: scale(1.02);
+}
+
+.achievement-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.achievement-title {
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    font-weight: 700;
+    color: var(--text-color);
+    line-height: 1.3;
+}
+
+.achievement-date {
+    background: none;
+    color: #9ca3af;
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+    white-space: nowrap;
+}
+
+.achievement-description {
+    color: #9ca3af;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+}
+
+.achievement-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
 /* Image Popup */
 .popup {
     position: fixed;
@@ -1006,6 +1083,9 @@ body.dark-mode .tech-tag.white { background: #312e81; color: #c7d2fe; }
     .contact-content {
         gap: 2rem;
     }
+    .achievements-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
 }
 
 @media (max-width: 768px) {
@@ -1043,14 +1123,17 @@ body.dark-mode .tech-tag.white { background: #312e81; color: #c7d2fe; }
     .projects-grid {
         grid-template-columns: 1fr;
     }
-    .project-image {
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+    .project-image, .certificate-image {
         max-height: 180px;
     }
-    .project-buttons {
+    .project-buttons, .achievement-buttons {
         flex-direction: column;
         gap: 0.5rem;
     }
-    .btn-project {
+    .btn-project, .btn-outline {
         width: 100%;
         padding: 10px;
         min-height: 44px;
@@ -1129,19 +1212,19 @@ body.dark-mode .tech-tag.white { background: #312e81; color: #c7d2fe; }
     .about-text h3, .technologies h3, .contact-info h3, .contact-form-card h3 {
         font-size: 1.1rem;
     }
-    .about-text p, .expertise-item, .project-description, .contact-details a {
+    .about-text p, .expertise-item, .project-description, .contact-details a, .achievement-description {
         font-size: 0.85rem;
     }
-    .tech-tag, .project-features li, .project-date {
+    .tech-tag, .project-features li, .project-date, .achievement-date {
         font-size: 0.8rem;
     }
-    .project-title {
+    .project-title, .achievement-title {
         font-size: 1rem;
     }
-    .project-image {
+    .project-image, .certificate-image {
         max-height: 150px;
     }
-    .project-card {
+    .project-card, .achievement-card {
         padding: 1.25rem;
     }
     .form-group input, .form-group textarea {
@@ -1201,10 +1284,10 @@ body.dark-mode .tech-tag.white { background: #312e81; color: #c7d2fe; }
     .section-title {
         font-size: clamp(1.4rem, 4.5vw, 1.6rem);
     }
-    .project-title {
+    .project-title, .achievement-title {
         font-size: 0.95rem;
     }
-    .project-image {
+    .project-image, .certificate-image {
         max-height: 140px;
     }
     .popup img {

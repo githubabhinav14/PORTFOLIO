@@ -1,17 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize EmailJS
-    emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS Public Key from https://dashboard.emailjs.com/
+    // Initialize EmailJS with your Public Key
+    // Replace 'YOUR_PUBLIC_KEY' with your EmailJS Public Key from https://dashboard.emailjs.com/
+    try {
+        emailjs.init('YOUR_PUBLIC_KEY');
+    } catch (error) {
+        console.error('EmailJS initialization failed:', error);
+    }
     
     // Mobile menu toggle
     const hamburger = document.querySelector('.hamburger');
     const mobileMenu = document.querySelector('.mobile-menu');
     
-    hamburger.addEventListener('click', function() {
-        mobileMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-        const isExpanded = hamburger.classList.contains('active');
-        hamburger.setAttribute('aria-expanded', isExpanded);
-    });
+    if (hamburger && mobileMenu) {
+        hamburger.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            const isExpanded = hamburger.classList.contains('active');
+            hamburger.setAttribute('aria-expanded', isExpanded);
+        });
+    }
     
     // Navigation links
     const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link:not(.download-cv)');
@@ -23,9 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollToSection(targetSection);
             
             // Close mobile menu if open
-            mobileMenu.classList.remove('active');
-            hamburger.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
+            if (mobileMenu && hamburger) {
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
             
             // Update active link
             updateActiveNavLink(targetSection);
@@ -36,9 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 scrollToSection(this.getAttribute('data-section'));
-                mobileMenu.classList.remove('active');
-                hamburger.classList.remove('active');
-                hamburger.setAttribute('aria-expanded', 'false');
+                if (mobileMenu && hamburger) {
+                    mobileMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
                 updateActiveNavLink(this.getAttribute('data-section'));
             }
         });
@@ -65,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Scroll spy for navigation
     window.addEventListener('scroll', function() {
-        const sections = ['home', 'about', 'projects', 'contact'];
+        const sections = ['home', 'about', 'projects', 'achievements', 'contact'];
         const scrollPos = window.scrollY + 100;
         
         sections.forEach(sectionId => {
@@ -129,89 +140,121 @@ document.addEventListener('DOMContentLoaded', function() {
                     backgroundColor: 'rgba(16, 185, 129, 0.2)',
                     fill: true,
                     tension: 0.4,
-                    hidden: true // Initially hidden
+                    hidden: true
                 }
             ]
         };
 
-        window.typingChart = new Chart(ctx, {
-            type: 'line',
-            data: chartData,
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
-                },
-                plugins: {
-                    tooltip: { mode: 'index', intersect: false },
-                    legend: {
-                        onClick: (e, legendItem, legend) => {
-                            const index = legendItem.datasetIndex;
-                            const ci = legend.chart;
-                            ci.data.datasets.forEach((ds, i) => {
-                                ds.hidden = i !== index;
-                            });
-                            ci.update();
+        try {
+            window.typingChart = new Chart(ctx, {
+                type: 'line',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    },
+                    plugins: {
+                        tooltip: { mode: 'index', intersect: false },
+                        legend: {
+                            onClick: (e, legendItem, legend) => {
+                                const index = legendItem.datasetIndex;
+                                const ci = legend.chart;
+                                ci.data.datasets.forEach((ds, i) => {
+                                    ds.hidden = i !== index;
+                                });
+                                ci.update();
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        } catch (error) {
+            console.error('Chart initialization failed:', error);
+        }
     }
     
     // Contact form handling
     const contactForm = document.getElementById('contactForm');
     const toastNotification = document.getElementById('toastNotification');
     
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const name = formData.get('name').trim();
-        const email = formData.get('email').trim();
-        const message = formData.get('message').trim();
-        const honeypot = formData.get('honeypot')?.trim() || ''; // Honeypot field
-        
-        // Validation
-        if (honeypot) {
-            showToast('Spam detected!', false);
-            return;
-        }
-        
-        if (name.length < 2) {
-            showToast('Name must be at least 2 characters long.', false);
-            return;
-        }
-        
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            showToast('Please enter a valid email address.', false);
-            return;
-        }
-        
-        if (message.length < 10) {
-            showToast('Message must be at least 10 characters long.', false);
-            return;
-        }
-        
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitBtn.disabled = true;
-        
-        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
-            name,
-            email,
-            message
-        }).then(() => {
-            this.reset();
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            showToast('Message Sent! I\'ll get back to you soon.', true);
-        }).catch(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            showToast('Failed to send message. Please try again.', false);
+    if (contactForm && toastNotification) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const name = formData.get('name').trim();
+            const email = formData.get('email').trim();
+            const message = formData.get('message').trim();
+            const honeypot = formData.get('honeypot')?.trim() || '';
+            
+            // Validation
+            if (honeypot) {
+                showToast('Spam detected!', false);
+                return;
+            }
+            
+            if (name.length < 2) {
+                showToast('Name must be at least 2 characters long.', false);
+                return;
+            }
+            
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showToast('Please enter a valid email address.', false);
+                return;
+            }
+            
+            if (message.length < 10) {
+                showToast('Message must be at least 10 characters long.', false);
+                return;
+            }
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your EmailJS Service ID and Template ID
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+                name,
+                email,
+                message
+            }).then(() => {
+                this.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                showToast('Message Sent! I\'ll get back to you soon.', true);
+            }).catch(error => {
+                console.error('EmailJS send failed:', error);
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                showToast('Failed to send message. Please try again.', false);
+            });
+        });
+    }
+    
+    // Image and certificate popup for project and achievement images
+    document.querySelectorAll('.project-image, .certificate-image, .certificate-view').forEach(item => {
+        item.addEventListener('click', () => {
+            const src = item.getAttribute('data-src') || item.src;
+            const alt = item.alt || 'Certificate Image';
+            const popup = document.createElement('div');
+            popup.classList.add('popup');
+            popup.innerHTML = `
+                <img src="${src}" alt="${alt}">
+                <span class="close-btn">✖</span>
+            `;
+            document.body.appendChild(popup);
+            document.querySelector('.close-btn').addEventListener('click', () => {
+                popup.remove();
+            });
+            // Close popup on click outside image
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    popup.remove();
+                }
+            });
         });
     });
 });
@@ -219,17 +262,19 @@ document.addEventListener('DOMContentLoaded', function() {
 // Function to show toast notification
 function showToast(message, isSuccess = true) {
     const toastNotification = document.getElementById('toastNotification');
-    toastNotification.querySelector('span').textContent = message;
-    toastNotification.querySelector('.toast-icon').className = `fas ${isSuccess ? 'fa-check-circle' : 'fa-exclamation-circle'} toast-icon`;
-    toastNotification.style.background = isSuccess 
-        ? 'linear-gradient(135deg, #7c3aed, #a855f7)' 
-        : 'linear-gradient(135deg, #ef4444, #f87171)';
-    
-    toastNotification.classList.add('visible');
-    
-    setTimeout(() => {
-        toastNotification.classList.remove('visible');
-    }, 3000);
+    if (toastNotification) {
+        toastNotification.querySelector('span').textContent = message;
+        toastNotification.querySelector('.toast-icon').className = `fas ${isSuccess ? 'fa-check-circle' : 'fa-exclamation-circle'} toast-icon`;
+        toastNotification.style.background = isSuccess 
+            ? 'linear-gradient(135deg, #7c3aed, #a855f7)' 
+            : 'linear-gradient(135deg, #ef4444, #f87171)';
+        
+        toastNotification.classList.add('visible');
+        
+        setTimeout(() => {
+            toastNotification.classList.remove('visible');
+        }, 3000);
+    }
 }
 
 // Smooth scroll to section
@@ -259,14 +304,10 @@ function updateActiveNavLink(activeSection) {
 // Add animation classes to elements
 function addAnimationClasses() {
     const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-        heroContent.classList.add('fade-in');
-    }
+    if (heroContent) heroContent.classList.add('fade-in');
     
     const sectionHeaders = document.querySelectorAll('.section-header');
-    sectionHeaders.forEach(header => {
-        header.classList.add('fade-in');
-    });
+    sectionHeaders.forEach(header => header.classList.add('fade-in'));
     
     const aboutText = document.querySelector('.about-text');
     const technologies = document.querySelector('.technologies');
@@ -280,6 +321,12 @@ function addAnimationClasses() {
         card.style.transitionDelay = `${index * 0.1}s`;
     });
     
+    const achievementCards = document.querySelectorAll('.achievement-card');
+    achievementCards.forEach((card, index) => {
+        card.classList.add('fade-in');
+        card.style.transitionDelay = `${index * 0.1}s`;
+    });
+    
     const contactInfo = document.querySelector('.contact-info');
     const contactFormContainer = document.querySelector('.contact-form-container');
     
@@ -287,9 +334,7 @@ function addAnimationClasses() {
     if (contactFormContainer) contactFormContainer.classList.add('slide-in-right');
     
     const footerContent = document.querySelector('.footer-content');
-    if (footerContent) {
-        footerContent.classList.add('fade-in');
-    }
+    if (footerContent) footerContent.classList.add('fade-in');
 }
 
 // Typing effect for hero title
@@ -310,7 +355,7 @@ function typeWriter(element, text, speed = 100) {
 
 // Smooth reveal animations
 function revealOnScroll() {
-    const reveals = document.querySelectorAll('.fade-in:not(.visible)');
+    const reveals = document.querySelectorAll('.fade-in:not(.visible), .slide-in-left:not(.visible), .slide-in-right:not(.visible)');
     
     reveals.forEach(element => {
         const windowHeight = window.innerHeight;
@@ -328,18 +373,20 @@ function toggleTheme() {
     document.body.classList.toggle('dark-mode');
     const isDark = document.body.classList.contains('dark-mode');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    document.querySelector('.theme-toggle i').className = `fas fa-${isDark ? 'sun' : 'moon'}`;
+    const themeIcon = document.querySelector('.theme-toggle i');
+    if (themeIcon) {
+        themeIcon.className = `fas fa-${isDark ? 'sun' : 'moon'}`;
+    }
 }
 
 // Load saved theme
 if (localStorage.getItem('theme') === 'dark') {
     document.body.classList.add('dark-mode');
-    document.querySelector('.theme-toggle i').className = 'fas fa-sun';
+    const themeIcon = document.querySelector('.theme-toggle i');
+    if (themeIcon) themeIcon.className = 'fas fa-sun';
 }
 
 window.addEventListener('scroll', revealOnScroll);
-
-document.addEventListener('DOMContentLoaded', revealOnScroll);
 
 // Add click effects to buttons
 document.addEventListener('click', function(e) {
@@ -361,9 +408,20 @@ function addFloatingAnimation() {
     const socialLinks = document.querySelectorAll('.social-links a');
     
     socialLinks.forEach((link, index) => {
+        link.style.animation = `float 3s ease-in-out infinite`;
         link.style.animationDelay = `${index * 0.2}s`;
     });
 }
+
+// Add keyframes for floating animation
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+`;
+document.head.appendChild(styleSheet);
 
 // Smooth appearance for elements
 function smoothAppear() {
@@ -394,6 +452,11 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.transitionDelay = `${index * 0.1}s`;
     });
     
+    const achievementCards = document.querySelectorAll('.achievement-card');
+    achievementCards.forEach((card, index) => {
+        card.style.transitionDelay = `${index * 0.1}s`;
+    });
+    
     const expertiseItems = document.querySelectorAll('.expertise-item');
     expertiseItems.forEach((item, index) => {
         item.style.transitionDelay = `${index * 0.1}s`;
@@ -403,6 +466,8 @@ document.addEventListener('DOMContentLoaded', function() {
     contactItems.forEach((item, index) => {
         item.style.transitionDelay = `${index * 0.1}s`;
     });
+    
+    smoothAppear();
 });
 
 // Performance optimization: throttle scroll events
@@ -424,18 +489,3 @@ const throttledScroll = throttle(function() {
 }, 100);
 
 window.addEventListener('scroll', throttledScroll);
-
-document.querySelectorAll('.project-image').forEach(img => {
-    img.addEventListener('click', () => {
-        const popup = document.createElement('div');
-        popup.classList.add('popup');
-        popup.innerHTML = `
-            <img src="${img.src}" alt="${img.alt}">
-            <span class="close-btn">✖</span>
-        `;
-        document.body.appendChild(popup);
-        document.querySelector('.close-btn').addEventListener('click', () => {
-            popup.remove();
-        });
-    });
-});
