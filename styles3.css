@@ -1,0 +1,108 @@
+/* Certificates Carousel Section */
+.certificates {
+    background: var(--card-bg);
+    padding: clamp(3rem, 8vw, 5rem) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.certificates::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 10% 20%, rgba(var(--gradient-start-rgb), 0.1), transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(var(--gradient-end-rgb), 0.1), transparent 50%);
+    opacity: 0.5;
+    z-index: 0;
+}
+
+.certificates .container {
+    position: relative;
+    z-index: 1;
+}
+
+.certificates-carousel {
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.certificates-track {
+    display: flex;
+    gap: clamp(2rem, 4vw, 3rem); /* Increased spacing */
+    animation: infinite-scroll 20s linear infinite;
+}
+
+.certificates-carousel:hover .certificates-track {
+    animation-play-state: paused;
+}
+
+.certificate-card {
+    flex: 0 0 clamp(200px, 25vw, 300px);
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.certificate-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.certificate-image {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain; /* Changed to contain */
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.certificate-card:hover .certificate-image {
+    transform: scale(1.02);
+}
+
+/* Infinite Scroll Animation */
+@keyframes infinite-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* Move half the track width for seamless loop */
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .certificate-card {
+        flex: 0 0 clamp(160px, 40vw, 200px);
+        padding: 0.75rem;
+    }
+
+    .certificate-image {
+        max-height: 150px;
+    }
+
+    .certificates-track {
+        gap: clamp(1.5rem, 3vw, 2rem); /* Adjusted spacing */
+    }
+}
+
+@media (max-width: 480px) {
+    .certificate-card {
+        flex: 0 0 clamp(140px, 45vw, 180px);
+        padding: 0.5rem;
+    }
+
+    .certificate-image {
+        max-height: 120px;
+    }
+
+    .certificates-track {
+        gap: clamp(1rem, 2vw, 1.5rem); /* Adjusted spacing */
+    }
+}

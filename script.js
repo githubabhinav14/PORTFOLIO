@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize EmailJS with your Public Key
-    // Replace 'YOUR_PUBLIC_KEY' with your EmailJS Public Key from https://dashboard.emailjs.com/
     try {
-        emailjs.init('YOUR_PUBLIC_KEY');
+        emailjs.init('64eb5Xkc61yX_rmFe');
     } catch (error) {
         console.error('EmailJS initialization failed:', error);
     }
@@ -242,8 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
             
-            // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your EmailJS Service ID and Template ID
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+            emailjs.send('service_lt5mzf3', 'template_4odreih', {
                 name,
                 email,
                 message
