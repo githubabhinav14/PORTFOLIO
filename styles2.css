@@ -1,13 +1,13 @@
 /* Education Section */
 .education {
-    background: var(--card-bg); /* Matches the background of other sections */
-    padding: clamp(3rem, 8vw, 5rem) 0; /* Consistent section padding */
+    background: var(--card-bg);
+    padding: clamp(3rem, 8vw, 5rem) 0;
 }
 
 .education-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: clamp(1.5rem, 4vw, 2rem); /* Consistent spacing with other sections */
+    gap: clamp(1.5rem, 4vw, 2rem);
 }
 
 .education-card {
@@ -91,7 +91,7 @@
 }
 
 .education-details li::before {
-    content: '\f058'; /* Font Awesome check-circle icon */
+    content: '\f058';
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     position: absolute;
@@ -100,7 +100,291 @@
     font-size: 0.9rem;
 }
 
+/* Testimonials Section */
+.testimonials {
+    background: var(--card-bg);
+    padding: clamp(3rem, 8vw, 5rem) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonials::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 10% 20%, rgba(var(--gradient-start-rgb), 0.1), transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(var(--gradient-end-rgb), 0.1), transparent 50%);
+    opacity: 0.5;
+    z-index: 0;
+}
+
+.testimonials .container {
+    position: relative;
+    z-index: 1;
+}
+
+.testimonials-slider {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    padding: 0 clamp(2rem, 5vw, 3rem); /* Ensure space for buttons */
+}
+
+.testimonials-track {
+    display: flex;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    gap: clamp(1.5rem, 4vw, 2rem);
+}
+
+.testimonial-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: clamp(1.5rem, 4vw, 2rem);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    flex: 0 0 100%;
+    max-width: 100%;
+    transform: scale(0.95);
+    opacity: 0.8;
+}
+
+.testimonials-track .testimonial-card.active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.testimonial-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.testimonial-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.quote-bubble {
+    position: relative;
+    background: linear-gradient(135deg, rgba(var(--gradient-start-rgb), 0.05), rgba(var(--gradient-end-rgb), 0.05));
+    border-radius: 16px;
+    padding: 1.5rem;
+    border-left: 4px solid var(--gradient-start);
+}
+
+.testimonial-quote p {
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    color: var(--text-color);
+    line-height: 1.8;
+    font-style: italic;
+    margin: 0;
+}
+
+.quote-icon {
+    font-size: 2rem;
+    color: var(--gradient-start);
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    opacity: 0.2;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.author-avatar i {
+    font-size: 1.5rem;
+}
+
+.author-info {
+    flex-grow: 1;
+}
+
+.author-name {
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.author-relation {
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    color: #6b7280;
+}
+
+.testimonial-image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid #4b5563;
+}
+
+.testimonial-image {
+    width: 100%;
+    height: auto;
+    max-height: 220px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.testimonial-image:hover {
+    transform: scale(1.05);
+}
+
+.testimonial-image-container:hover .testimonial-image {
+    transform: scale(1.05);
+}
+
+.btn-sm {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    padding: 0.5rem 1rem;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.slider-btn:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 8px 24px rgba(var(--gradient-start-rgb), 0.4);
+}
+
+.slider-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.prev-btn {
+    left: -60px;
+}
+
+.next-btn {
+    right: -60px;
+}
+
 /* Responsive Design */
+@media (min-width: 768px) {
+    .testimonial-card {
+        flex: 0 0 calc(33.333% - clamp(1rem, 2.67vw, 1.33rem));
+        max-width: calc(33.333% - clamp(1rem, 2.67vw, 1.33rem));
+    }
+
+    .prev-btn {
+        left: -60px;
+    }
+
+    .next-btn {
+        right: -60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+
+    .slider-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .prev-btn {
+        left: -20px;
+    }
+
+    .next-btn {
+        right: -20px;
+    }
+
+    .testimonial-image {
+        max-height: 180px;
+    }
+
+    .quote-bubble {
+        padding: 1.25rem;
+    }
+
+    .author-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .testimonial-quote p {
+        font-size: 0.9rem;
+    }
+
+    .author-name {
+        font-size: 1rem;
+    }
+
+    .author-relation {
+        font-size: 0.85rem;
+    }
+
+    .testimonial-image {
+        max-height: 150px;
+    }
+
+    .slider-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .slider-btn i {
+        font-size: 0.9rem;
+    }
+
+    .prev-btn {
+        left: -15px;
+    }
+
+    .next-btn {
+        right: -15px;
+    }
+}
+
+/* Responsive Design for Education */
 @media (max-width: 768px) {
     .education-grid {
         grid-template-columns: 1fr;

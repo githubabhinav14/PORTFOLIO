@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Scroll spy for navigation
     const throttledScrollSpy = throttle(function() {
-        const sections = ['home', 'about', 'projects', 'achievements', 'education', 'contact'];
+        const sections = ['home', 'about', 'projects', 'achievements', 'education', 'testimonials', 'contact'];
         const scrollPos = window.scrollY + 100; // Offset for navbar height
         
         sections.forEach(sectionId => {
@@ -261,11 +261,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Image and certificate popup for project and achievement images
-    document.querySelectorAll('.project-image, .certificate-image, .certificate-view').forEach(item => {
+    // Image and certificate popup for project, achievement, and testimonial images
+    document.querySelectorAll('.project-image, .certificate-image, .certificate-view, .testimonial-image').forEach(item => {
         item.addEventListener('click', () => {
             const src = item.getAttribute('data-src') || item.src;
-            const alt = item.alt || 'Certificate Image';
+            const alt = item.alt || 'Image';
             if (src && !src.endsWith('.pdf')) { // Only open popups for non-PDF files
                 const popup = document.createElement('div');
                 popup.classList.add('popup');
@@ -298,6 +298,100 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Testimonial slider functionality
+    const testimonialsTrack = document.querySelector('.testimonials-track');
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const prevBtn = document.querySelector('.testimonials-slider .prev-btn');
+    const nextBtn = document.querySelector('.testimonials-slider .next-btn');
+    
+    if (testimonialsTrack && prevBtn && nextBtn && testimonialCards.length > 0) {
+        let currentIndex = 0;
+        let autoScrollInterval = null;
+        const autoScrollDelay = 5000; // 5 seconds
+        
+        function updateSlider() {
+            const isMobile = window.innerWidth < 768;
+            const cardsPerView = isMobile ? 1 : 3;
+            const maxIndex = Math.max(0, testimonialCards.length - cardsPerView);
+            const cardWidth = testimonialCards[0].offsetWidth + parseInt(getComputedStyle(testimonialCards[0]).marginRight || 0);
+            
+            if (currentIndex > maxIndex) currentIndex = maxIndex;
+            if (currentIndex < 0) currentIndex = 0;
+            
+            testimonialsTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+            
+            // Update active card class
+            testimonialCards.forEach((card, index) => {
+                card.classList.toggle('active', Math.floor(index / cardsPerView) === currentIndex / cardsPerView);
+            });
+            
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex >= maxIndex;
+        }
+        
+        function goToSlide(index) {
+            currentIndex = index;
+            updateSlider();
+        }
+        
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(() => {
+                currentIndex++;
+                const isMobile = window.innerWidth < 768;
+                const cardsPerView = isMobile ? 1 : 3;
+                const maxIndex = Math.max(0, testimonialCards.length - cardsPerView);
+                if (currentIndex > maxIndex) currentIndex = 0;
+                updateSlider();
+            }, autoScrollDelay);
+        }
+        
+        function stopAutoScroll() {
+            clearInterval(autoScrollInterval);
+        }
+        
+        nextBtn.addEventListener('click', () => {
+            currentIndex++;
+            updateSlider();
+            stopAutoScroll();
+            startAutoScroll();
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            currentIndex--;
+            updateSlider();
+            stopAutoScroll();
+            startAutoScroll();
+        });
+        
+        // Keyboard navigation for slider
+        testimonialsTrack.parentElement.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                currentIndex--;
+                updateSlider();
+                stopAutoScroll();
+                startAutoScroll();
+            } else if (e.key === 'ArrowRight') {
+                currentIndex++;
+                updateSlider();
+                stopAutoScroll();
+                startAutoScroll();
+            }
+        });
+        
+        // Pause auto-scroll on hover
+        testimonialsTrack.parentElement.addEventListener('mouseenter', stopAutoScroll);
+        testimonialsTrack.parentElement.addEventListener('mouseleave', startAutoScroll);
+        
+        // Update slider on window resize
+        window.addEventListener('resize', throttle(() => {
+            updateSlider();
+        }, 100));
+        
+        // Initialize slider and auto-scroll
+        updateSlider();
+        startAutoScroll();
+    }
+
     // Add floating animation to social links
     addFloatingAnimation();
     
@@ -324,6 +418,11 @@ document.addEventListener('DOMContentLoaded', function() {
     contactItems.forEach((item, index) => {
         item.style.transitionDelay = `${index * 0.1}s`;
     });
+    
+    // Reuse testimonialCards for animation
+    testimonialCards.forEach((card, index) => {
+        card.style.transitionDelay = `${index * 0.2}s`; // Increased delay for more dramatic effect
+    });
 });
 
 // Function to show toast notification
@@ -331,7 +430,7 @@ function showToast(message, isSuccess = true) {
     const toastNotification = document.getElementById('toastNotification');
     if (toastNotification) {
         toastNotification.querySelector('span').textContent = message;
-        toastNotification.querySelector('.toast-icon').className = `fas ${isSuccess ? 'fa-check-circle' : 'fa-exclamation-circle'} toast-icon`;
+        toastNotification.querySelector('i').className = `fas ${isSuccess ? 'fa-check-circle' : 'fa-exclamation-circle'} toast-icon`;
         toastNotification.style.background = isSuccess 
             ? 'linear-gradient(135deg, #7c3aed, #a855f7)' 
             : 'linear-gradient(135deg, #ef4444, #f87171)';
@@ -358,7 +457,7 @@ function scrollToSection(sectionId) {
     }
 }
 
-// Update active navigation link
+// Update active navigation
 function updateActiveNavLink(activeSection) {
     const allLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
     allLinks.forEach(link => {
@@ -399,6 +498,12 @@ function addAnimationClasses() {
     educationCards.forEach((card, index) => {
         card.classList.add('fade-in');
         card.style.transitionDelay = `${index * 0.1}s`;
+    });
+    
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    testimonialCards.forEach((card, index) => {
+        card.classList.add('fade-in');
+        card.style.transitionDelay = `${index * 0.2}s`;
     });
     
     const contactInfo = document.querySelector('.contact-info');

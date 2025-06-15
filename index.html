@@ -29,7 +29,7 @@
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+        gtag('js', {});
         gtag('config', 'YOUR_GA_ID'); // Replace YOUR_GA_ID with your Google Analytics Tracking ID
     </script>
     
@@ -55,6 +55,7 @@
                 <a href="#projects" class="nav-link" data-section="projects" aria-label="Go to Projects section">Projects</a>
                 <a href="#achievements" class="nav-link" data-section="achievements" aria-label="Go to Achievements section">Achievements</a>
                 <a href="#education" class="nav-link" data-section="education" aria-label="Go to Education section">Education</a>
+                <a href="#testimonials" class="nav-link" data-section="testimonials" aria-label="Go to Testimonials section">Testimonials</a>
                 <a href="#contact" class="nav-link" data-section="contact" aria-label="Go to Contact section">Contact</a>
                 <a href="files/Abhinav CV.pdf" class="download-cv" download aria-label="Download my CV">
                     <i class="fas fa-download"></i> Download CV
@@ -76,6 +77,7 @@
             <a href="#projects" class="mobile-nav-link" data-section="projects" aria-label="Go to Projects section">Projects</a>
             <a href="#achievements" class="mobile-nav-link" data-section="achievements" aria-label="Go to Achievements section">Achievements</a>
             <a href="#education" class="mobile-nav-link" data-section="education" aria-label="Go to Education section">Education</a>
+            <a href="#testimonials" class="mobile-nav-link" data-section="testimonials" aria-label="Go to Testimonials section">Testimonials</a>
             <a href="#contact" class="mobile-nav-link" data-section="contact" aria-label="Go to Contact section">Contact</a>
             <a href="files/Abhinav CV.pdf" class="mobile-nav-link download-cv" download aria-label="Download my CV">Download CV</a>
         </div>
@@ -344,7 +346,6 @@
                     <img src="certificates/JPG/GOOGLE.jpg" alt="GenAI Solution Challenge Certificate" class="certificate-image" loading="lazy">
                     <div class="achievement-header">
                         <h3 class="achievement-title">GenAI Solution Challenge – Google Developer Groups (GDG)</h3>
-                        <!-- <span class="achievement-date">2024</span> -->
                     </div>
                     <p class="achievement-description">
                         Earned a Certificate of Appreciation and branded items for completing the challenge using cutting-edge technology.
@@ -363,7 +364,6 @@
                     <img src="certificates/JPG/IITH.jpg" alt="AI & ML Workshop Certificate" class="certificate-image" loading="lazy">
                     <div class="achievement-header">
                         <h3 class="achievement-title">AI & ML Workshop – Skilligence EdTech & IIT Hyderabad</h3>
-                        <!-- <span class="achievement-date">AUG 2024</span> -->
                     </div>
                     
                     <p class="achievement-description">
@@ -383,7 +383,6 @@
                     <img src="certificates/JPG/INTEL.jpg" alt="Machine Learning Training Certificate" class="certificate-image" loading="lazy">
                     <div class="achievement-header">
                         <h3 class="achievement-title">Machine Learning Training – Intel® Unnati Lab & MRCET</h3>
-                        <!-- <span class="achievement-date">2024</span> -->
                     </div>
                     <p class="achievement-description">
                         Completed a 3-day training program on Machine Learning organized by Edgate Technologies in collaboration with Malla Reddy College.
@@ -402,7 +401,6 @@
                     <img src="certificates/JPG/INTEL.jpg" alt="Cisco CCNA Certification Workshop Certificate" class="certificate-image" loading="lazy">
                     <div class="achievement-header">
                         <h3 class="achievement-title">Cisco CCNA Certification Workshop – Edgate & MRCET</h3>
-                        <!-- <span class="achievement-date">2025</span> -->
                     </div>
                     <p class="achievement-description">
                         3-day workshop on Cisco CCNA Certification Training.
@@ -421,7 +419,6 @@
                     <img src="certificates/JPG/AWARD.jpg" alt="Best Designer Award Certificate" class="certificate-image" loading="lazy">
                     <div class="achievement-header">
                         <h3 class="achievement-title">Best Designer Award – University Tech Fest</h3>
-                        <!-- <span class="achievement-date">2023</span> -->
                     </div>
                     <p class="achievement-description">
                         Awarded for outstanding design work during my degree program.
@@ -440,7 +437,6 @@
                     <img src="certificates/JPG/C_LANGUAGE.jpg" alt="C Programming Certificate" class="certificate-image" loading="lazy">
                     <div class="achievement-header">
                         <h3 class="achievement-title">C Programming – Infologic Software Training & Development</h3>
-                        <!-- <span class="achievement-date">2022</span> -->
                     </div>
                     <p class="achievement-description">
                         Certificate of Professional Achievement in C Programming.
@@ -484,11 +480,10 @@
                         <ul>
                             <li>Web Development</li>
                             <li>Computer Networks</li>
-                            <li>Operating SystemsL</li>
+                            <li>Operating Systems</li>
                             <li>Database Management Systems (DBMS)</li>
                             <li>Data Structures and Algorithms</li>
-                            <li>Cloud ComputingL</li>
-                            
+                            <li>Cloud Computing</li>
                         </ul>
                     </div>
                     <div class="education-details">
@@ -500,6 +495,83 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials & Mentions Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Testimonials & Mentions</h2>
+                <p class="section-subtitle">
+                    Hear what my professors, mentors, and teammates have to say about my work and collaboration.
+                </p>
+            </div>
+            <div class="testimonials-slider" role="region" aria-label="Testimonials slider">
+                <div class="testimonials-track">
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-content">
+                            <div class="quote-bubble">
+                                <i class="fas fa-quote-left quote-icon"></i>
+                                <blockquote class="testimonial-quote">
+                                    <p>Abhinav was the most reliable team member during our capstone project. His commitment to quality and design-thinking mindset stood out.</p>
+                                </blockquote>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <span>T</span>
+                                </div>
+                                <div class="author-info">
+                                    <p class="author-name">Anonymous</p>
+                                    <p class="author-relation">Teammate, Final Year Project</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-content">
+                            <div class="quote-bubble">
+                                <i class="fas fa-quote-left quote-icon"></i>
+                                <blockquote class="testimonial-quote">
+                                    <p>Skilled in full-stack development and always eager to learn. Highly recommend working with him.</p>
+                                </blockquote>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <span>M</span>
+                                </div>
+                                <div class="author-info">
+                                    <p class="author-name">Anonymous</p>
+                                    <p class="author-relation">LinkedIn Recommendation from Mentor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-content">
+                            <div class="testimonial-image-container">
+                                <img src="images/linkedin-endorsement1.png" alt="LinkedIn Endorsement Screenshot" class="testimonial-image" loading="lazy">
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <i class="fab fa-linkedin"></i>
+                                </div>
+                                <div class="author-info">
+                                    <p class="author-name">LinkedIn Endorsement</p>
+                                    <p class="author-relation">Professional Recommendation</p>
+                                    <a href="https://www.linkedin.com/in/abhinav-nallanagula/" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer" aria-label="View full LinkedIn endorsement">View Full Endorsement</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-btn prev-btn" aria-label="Previous testimonial">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-btn next-btn" aria-label="Next testimonial">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
     </section>
